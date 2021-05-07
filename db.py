@@ -42,3 +42,29 @@ def read_table(db_file, selector_script, search_name):
         return records
     except sqlite3.Error as e:
         print(e)
+
+def to_lower(_str: str):
+    return _str.lower()
+
+def search_record(data: str, db_file, insert_script=None):
+    try:
+        conn = sqlite3.connect(db_file)
+        cursor = conn.cursor()
+        conn.create_function("mylower", 1, to_lower)
+        cursor.execute(insert_script, ["%"+data+"%"])
+        records = cursor.fetchall()
+        print(records)
+        return records
+    except sqlite3.Error as e:
+        print(e)
+
+
+
+
+# def install_function():
+#     conn = sqlite3.connect("sql1.db")
+#     cursor = conn.cursor()
+#     conn.create_function("mylower", 1, to_lower)
+
+
+

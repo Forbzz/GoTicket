@@ -131,7 +131,6 @@ class MainWindow(QMainWindow):
     # GUI для TAB просмотра матчей
     def show_sport_ui(self) -> QWidget:
 
-
         create_sport_tab = QWidget()
         layout = QFormLayout()
 
@@ -327,6 +326,9 @@ class MainWindow(QMainWindow):
 
     @pyqtSlot()
     def search_ticket(self):
+        print(self.e_search.text())
+        event_list = search_record(self.e_search.text(), db_file, sql_select_event_like_name)
+        self.refresh(event_list)
         print('search')
 
     # берётся выделенный матч и подгружаются все нужные данные
@@ -352,8 +354,13 @@ class MainWindow(QMainWindow):
 
 
     @pyqtSlot()
-    def refresh(self):
-        match_list = read_table (db_file, sql_select_event_all, None)
+    def refresh(self, match_list=None):
+        self.t_sport.clear()
+
+        if match_list is None:
+            match_list = read_table (db_file, sql_select_event_all, None)
+
+        self.t_sport.setRowCount(len(match_list))
         for index, match in enumerate (match_list):
             event_info = read_table (db_file, sql_select_event_info_id, match [3])
             address_info = read_table (db_file, sql_select_address_id, match [4])
@@ -450,7 +457,7 @@ class AuthWindow(QMainWindow):
     def on_click_sign_up(self):
         print('\nРегистрация')
         print('Логин  :', self.e_name_up.text())
-        print('Пароль :', self.e_pass_up    .text())
+        print('Пароль :', self.e_pass_up.text())
         pass
 
     # Вход без авторизации

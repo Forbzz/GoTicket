@@ -51,3 +51,6 @@ sql_select_event_info_id = '''
 select * from event_info where id = ?;'''
 sql_select_event_info_date = '''
 select * from event_info where date = ?;'''
+sql_select_event_like_name = '''
+SELECT * FROM event WHERE mylower(name) LIKE ?
+'''
