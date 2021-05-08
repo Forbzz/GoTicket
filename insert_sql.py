@@ -35,7 +35,7 @@ sql_insert_event_info = """
 """
 
 sql_insert_user = """
-    INSERT INTO user (password, login, balance, role_id, personal_info_id) VALUES (?, ?,?, ?,?);
+    INSERT INTO user (password, login, registration_date, balance, role_id, personal_info_id) VALUES (?, ?,?, ?,?,?);
 """
 
 

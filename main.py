@@ -10,6 +10,7 @@ from db import *
 from select_sql import *
 from insert_sql import *
 from update import *
+from datetime import datetime
 
 conn_tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_addr = ('127.0.0.1', 8888)
@@ -549,6 +550,7 @@ class AuthWindow(QMainWindow):
             msgBox = QMessageBox()
             msgBox.setText("Введенные пароли не совпадают")
             msgBox.exec()
+            return
         conn = create_connection(db_file)
         c = conn.cursor()
         role_query = c.execute(sql_select_users_role, (self.e_name_up.text(),))
@@ -565,12 +567,15 @@ class AuthWindow(QMainWindow):
             return
         conn = create_connection(db_file)
 
+        time = datetime.now().strftime("%B %d, %Y %I:%M%p")
         execute_multiple_record(["",0], db_file, sql_insert_personal_info)
         conn = create_connection(db_file)
         last_personal_info_id_query = c.execute(sql_select_last_personal_info)
         last_personal_info_id = c.fetchall()
         last_personal_info_id = last_personal_info_id[0][0]
-        execute_multiple_record([self.e_pass_up.text(), self.e_name_up.text(), 0, 3, last_personal_info_id], db_file, sql_insert_user)
+
+        time = datetime.now().strftime("%B %d, %Y %I:%M%p")
+        execute_multiple_record([self.e_pass_up.text(), self.e_name_up.text(),time, 0, 3, last_personal_info_id], db_file, sql_insert_user)
         self.close()
         self.window = MainWindow()
         self.window.show()

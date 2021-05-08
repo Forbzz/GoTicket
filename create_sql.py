@@ -12,6 +12,7 @@ sql_create_user = """
     id integer primary key autoincrement not null,
     password VARCHAR(200) not null,
     login VARCHAR(200) not null,
+    registration_date date not null,
     balance integer,
     role_id integer,
     personal_info_id integer,
@@ -113,7 +114,7 @@ def create_table(conn, create_table_sql):
 
 conn = create_connection(db)
 if conn is not None:
-    create_table(conn, sql_create_event)
+    create_table(conn, sql_create_user)
     print('gc!')
 else:
     print("Error! cannot the databese connection.")
