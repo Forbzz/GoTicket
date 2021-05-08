@@ -398,7 +398,15 @@ class MainWindow(QMainWindow):
     def search_ticket(self):
         print(self.e_search.text())
         event_list = search_record(self.e_search.text(), db_file, sql_select_event_like_name)
-        self.refresh(event_list)
+        desc_list = search_record(self.e_search.text(), db_file, sql_select_event_info_description)
+        event_desc_list = []
+        event_from_list = []
+        for item in desc_list:
+            event_from_list.append(read_table(db_file, sql_select_event_from_event_info_id, item[0]))
+        for item in event_from_list:
+            event_desc_list.append(item[0])
+        matches_list = event_list + event_desc_list
+        self.refresh(list(set(matches_list)))
         print('search')
 
     # берётся выделенный матч и подгружаются все нужные данные

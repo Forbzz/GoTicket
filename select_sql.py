@@ -3,7 +3,8 @@ import sqlite3
 sql_select_event_info_description = '''
 select * from event_info where description = ?;'''
 
-
+sql_select_event_info_description = '''
+select * from event_info where mylower(description) LIKE ?;'''
 
 sql_select_personal_info_fio = '''
 select fio from personal_info where id = ?;
@@ -59,4 +60,7 @@ sql_select_users_role = '''
 select role_id from user where login = ?;'''
 sql_select_event_like_name = '''
 SELECT * FROM event WHERE mylower(name) LIKE ?
+'''
+sql_select_event_from_event_info_id = '''
+SELECT * FROM event WHERE event_info_id = ?
 '''

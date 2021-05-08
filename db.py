@@ -34,7 +34,7 @@ def read_table(db_file, selector_script, search_name):
         if search_name is None:
             cursor.execute(selector_script)
         else:
-            cursor.execute(selector_script, (search_name,))
+            cursor.execute(selector_script, (str(search_name),))
         records = cursor.fetchall()
         print(records)
         cursor.close()
@@ -42,6 +42,7 @@ def read_table(db_file, selector_script, search_name):
         return records
     except sqlite3.Error as e:
         print(e)
+
 
 def to_lower(_str: str):
     return _str.lower()
@@ -51,7 +52,7 @@ def search_record(data: str, db_file, insert_script=None):
         conn = sqlite3.connect(db_file)
         cursor = conn.cursor()
         conn.create_function("mylower", 1, to_lower)
-        cursor.execute(insert_script, ["%"+data+"%"])
+        cursor.execute(insert_script, ["%"+data.lower()+"%"])
         records = cursor.fetchall()
         print(records)
         return records
