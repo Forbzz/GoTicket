@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="18bcad39-d25d-4dcc-830a-f86fc8231017" name="Default Changelist" comment="add:register, autorize">
+    <list default="true" id="18bcad39-d25d-4dcc-830a-f86fc8231017" name="Default Changelist" comment="add:date">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/create_sql.py" beforeDir="false" afterPath="$PROJECT_DIR$/create_sql.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insert_sql.py" beforeDir="false" afterPath="$PROJECT_DIR$/insert_sql.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sql1.db" beforeDir="false" afterPath="$PROJECT_DIR$/sql1.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,7 +98,7 @@
       <workItem from="1620372755997" duration="578000" />
       <workItem from="1620460798236" duration="755000" />
       <workItem from="1620461723531" duration="252000" />
-      <workItem from="1620463131063" duration="4356000" />
+      <workItem from="1620463131063" duration="5224000" />
     </task>
     <task id="LOCAL-00001" summary="merge_file">
       <created>1620460883870</created>
@@ -125,7 +121,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620466570521</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="add:date">
+      <created>1620467757226</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1620467757226</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -146,7 +149,8 @@
     <MESSAGE value="merge_file" />
     <MESSAGE value="merge roles&amp;searches" />
     <MESSAGE value="add:register, autorize" />
-    <option name="LAST_COMMIT_MESSAGE" value="add:register, autorize" />
+    <MESSAGE value="add:date" />
+    <option name="LAST_COMMIT_MESSAGE" value="add:date" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -160,7 +164,7 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/GoTicket$main.coverage" NAME="main Coverage Results" MODIFIED="1620467488062" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/GoTicket$main.coverage" NAME="main Coverage Results" MODIFIED="1620467776139" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/GoTicket$create_sql.coverage" NAME="create_sql Coverage Results" MODIFIED="1620467342401" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
