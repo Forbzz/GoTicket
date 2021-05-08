@@ -16,6 +16,7 @@ def execute_single_record(data, db_file, insert_script):
 # вставка нескольких переменных в одну таблицу
 def execute_multiple_record(data, db_file, insert_script):
     try:
+        print(data)
         sqlite_connection = sqlite3.connect(db_file, timeout=10)
         cursor = sqlite_connection.cursor()
         cursor.execute(insert_script, data)
@@ -23,6 +24,7 @@ def execute_multiple_record(data, db_file, insert_script):
         cursor.close()
         sqlite_connection.close()
     except sqlite3.Error as e:
+        print("dasd")
         print(e)
 
 

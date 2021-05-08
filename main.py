@@ -520,7 +520,24 @@ class AuthWindow(QMainWindow):
         print('\nВход')
         print('Логин  :', self.e_name_in.text())
         print('Пароль :', self.e_pass_in.text())
-        pass
+        conn = create_connection(db_file)
+        c = conn.cursor()
+        login_query = c.execute(sql_select_users_login_pass, (self.e_name_in.text(),))
+        password = c.fetchall()
+        if len(password) == 0:
+            msgBox = QMessageBox()
+            msgBox.setText("Неверный логин")
+            msgBox.exec()
+            return
+        password = password[0][0]
+        if password != self.e_pass_in.text():
+            msgBox = QMessageBox()
+            msgBox.setText("Неверный пароль")
+            msgBox.exec()
+            return
+        self.close()
+        self.window = MainWindow()
+        self.window.show()
 
     # Вход через регистрацию
     @pyqtSlot()
@@ -528,7 +545,36 @@ class AuthWindow(QMainWindow):
         print('\nРегистрация')
         print('Логин  :', self.e_name_up.text())
         print('Пароль :', self.e_pass_up.text())
-        pass
+        if self.e_pass_up.text() != self.e_pass_up_check.text():
+            msgBox = QMessageBox()
+            msgBox.setText("Введенные пароли не совпадают")
+            msgBox.exec()
+        conn = create_connection(db_file)
+        c = conn.cursor()
+        role_query = c.execute(sql_select_users_role, (self.e_name_up.text(),))
+        role = c.fetchall()
+        if len(role) > 0:
+            msgBox = QMessageBox()
+            msgBox.setText("Пользователь с таким именем уже существует")
+            msgBox.exec()
+            return
+        if len(self.e_pass_up.text()) < 8:
+            msgBox = QMessageBox()
+            msgBox.setText("Пароль должен содержать хотя бы 8 символов")
+            msgBox.exec()
+            return
+        conn = create_connection(db_file)
+
+        execute_multiple_record(["",0], db_file, sql_insert_personal_info)
+        conn = create_connection(db_file)
+        last_personal_info_id_query = c.execute(sql_select_last_personal_info)
+        last_personal_info_id = c.fetchall()
+        last_personal_info_id = last_personal_info_id[0][0]
+        execute_multiple_record([self.e_pass_up.text(), self.e_name_up.text(), 0, 3, last_personal_info_id], db_file, sql_insert_user)
+        self.close()
+        self.window = MainWindow()
+        self.window.show()
+
 
     # Вход без авторизации
     @pyqtSlot()
