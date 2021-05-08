@@ -110,9 +110,15 @@ class TicketWindow(QMainWindow):
 
 class MainWindow(QMainWindow):
 
-    def __init__(self):
+    def __init__(self, user):
         QMainWindow.__init__(self)
-
+        self.user = user
+        conn = create_connection(db_file)
+        c = conn.cursor()
+        role_query = c.execute(sql_select_users_role, (user,))
+        role = c.fetchall()
+        role = [i[0] for i in role]
+        self.role = role[0]  # текущая роль челикаа
         self.setMinimumSize(QSize(700, 500))
         self.setWindowTitle("Go Ticket")
 
@@ -592,7 +598,7 @@ class AuthWindow(QMainWindow):
             msgBox.exec()
             return
         self.close()
-        self.window = MainWindow()
+        self.window = MainWindow(self.e_name_in.text())
         self.window.show()
 
     # Вход через регистрацию
@@ -632,7 +638,7 @@ class AuthWindow(QMainWindow):
         time = datetime.now().strftime("%B %d, %Y %I:%M%p")
         execute_multiple_record([self.e_pass_up.text(), self.e_name_up.text(),time, 0, 3, last_personal_info_id], db_file, sql_insert_user)
         self.close()
-        self.window = MainWindow()
+        self.window = MainWindow(self.e_name_in.text())
         self.window.show()
 
 
