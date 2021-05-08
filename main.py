@@ -1,4 +1,3 @@
-import datetime
 import sys
 import socket
 from PyQt5.QtCore import *
@@ -135,10 +134,22 @@ class MainWindow(QMainWindow):
         w.show()
 
     def onTabBarClicked(self, index):
+        if index == 1:
+            self.update_stat ()
         if index == 4 or index == 3:
             self.update_log()
         if index == 0:
             self.update_ticket()
+
+    def update_stat (self):
+        stat_list = triggers.sql_execute ("sql1.db", """SELECT user.login, COUNT(*), user.registration_date FROM user
+                                                        JOIN ticket ON ticket.user_id = user.id
+                                                        GROUP BY user.id;""")
+        self.t_user.setRowCount (len (stat_list))
+        for i in range (len (stat_list)):
+            self.t_user.setItem (i, 0, QTableWidgetItem (str (stat_list [i] [0])))
+            self.t_user.setItem (i, 1, QTableWidgetItem (str (stat_list [i] [1])))
+            self.t_user.setItem (i, 2, QTableWidgetItem (str (stat_list [i] [2])))
 
 
 
@@ -222,7 +233,7 @@ class MainWindow(QMainWindow):
             print('\nСоздание матча')
 
             try:
-                datetime.datetime.strptime(date.text(), "%d.%m.%Y")
+                datetime.strptime(date.text(), "%d.%m.%Y")
             except ValueError:
                 QMessageBox.information (self, 'Внимание', 'Неверный формат даты')
                 return
@@ -337,7 +348,7 @@ class MainWindow(QMainWindow):
             role = 1
         elif self.moder_button.isChecked():
             role = 2
-        elif self.moder_button.isChecked():
+        elif self.user_button.isChecked():
             role = 3
         else:
             message = QErrorMessage()
@@ -418,18 +429,33 @@ class MainWindow(QMainWindow):
 
     @pyqtSlot()
     def search_ticket(self):
-        print(self.e_search.text())
-        event_list = search_record(self.e_search.text(), db_file, sql_select_event_like_name)
-        desc_list = search_record(self.e_search.text(), db_file, sql_select_event_info_description)
+        # print(self.e_search.text())
+        # event_list = search_record(self.e_search.text(), db_file, sql_select_event_like_name)
+        # desc_list = search_record(self.e_search.text(), db_file, sql_select_event_info_description)
+        # print("DESC", desc_list)
+        # event_desc_list = []
+        # event_from_list = []
+        # for item in desc_list:
+        #     event_from_list.append(read_table(db_file, sql_select_event_from_event_info_id, item[0]))
+        # for item in event_from_list:
+        #     event_desc_list.append(item[0])
+        # print(event_list)
+        # print(event_desc_list)
+        # matches_list = event_list + event_desc_list
+        # self.refresh(list(set(matches_list)))
+        # print('search')
+        print (self.e_search.text ())
+        event_list = search_record (self.e_search.text(), db_file, sql_select_event_like_name)
+        desc_list = search_record (self.e_search.text(), db_file, sql_select_event_info_description_like)
         event_desc_list = []
         event_from_list = []
         for item in desc_list:
-            event_from_list.append(read_table(db_file, sql_select_event_from_event_info_id, item[0]))
+            event_from_list.append (read_table (db_file, sql_select_event_from_event_info_id, item [0]))
         for item in event_from_list:
-            event_desc_list.append(item[0])
+            event_desc_list.append (item [0])
         matches_list = event_list + event_desc_list
-        self.refresh(list(set(matches_list)))
-        print('search')
+        self.refresh (list (set (matches_list)))
+        print ('search')
 
     # берётся выделенный матч и подгружаются все нужные данные
     @pyqtSlot()

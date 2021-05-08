@@ -3,6 +3,8 @@ import sqlite3
 sql_select_event_info_description = '''
 select * from event_info where description = ?;'''
 
+sql_select_event_info_description_like = '''
+select * from event_info where description LIKE ?;'''
 
 
 sql_select_personal_info_fio = '''
