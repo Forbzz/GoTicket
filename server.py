@@ -3,7 +3,7 @@ import socket
 import threading
 import _thread
 
-import db_sql
+
 
 conn_tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_addr = ('127.0.0.1', 8888)

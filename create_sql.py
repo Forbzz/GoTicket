@@ -11,6 +11,8 @@ sql_create_user = """
     CREATE TABLE IF NOT EXISTS USER(
     id integer primary key autoincrement not null,
     password VARCHAR(200) not null,
+    login VARCHAR(200) not null,
+    registration_date date not null,
     balance integer,
     role_id integer,
     personal_info_id integer,
@@ -112,7 +114,16 @@ def create_table(conn, create_table_sql):
 
 conn = create_connection(db)
 if conn is not None:
-    create_table(conn, sql_create_event)
+    create_table(conn, """
+    CREATE TABLE IF NOT EXISTS log_table(
+        id INTEGER PRIMARY KEY autoincrement NOT NULL,
+        user_id INTEGER, 
+        ticket_id INTEGER,
+        event_id INTEGER,
+        operation_time DATE,
+        operation_action VARCHAR  (128) NOT NULL	
+    )
+""")
     print('gc!')
 else:
     print("Error! cannot the databese connection.")

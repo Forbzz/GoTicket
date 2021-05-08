@@ -6,7 +6,7 @@ select * from event_info where description = ?;'''
 
 
 sql_select_personal_info_fio = '''
-select * from personal_info where fio = ?;
+select fio from personal_info where id = ?;
 '''
 sql_select_user_role_id = '''
 select * from user where role_id = ?;'''
@@ -51,3 +51,22 @@ sql_select_event_info_id = '''
 select * from event_info where id = ?;'''
 sql_select_event_info_date = '''
 select * from event_info where date = ?;'''
+sql_select_users_login = '''
+select login from user;'''
+sql_select_users_all = '''
+select personal_info_id from user;'''
+sql_select_users_role = '''
+select role_id from user where login = ?;'''
+sql_select_users_login_pass = '''
+select password from user where login = ?;'''
+sql_select_event_like_name = '''
+SELECT * FROM event WHERE mylower(name) LIKE ?
+'''
+
+sql_select_event_from_event_info_id = '''
+SELECT * FROM event WHERE event_info_id = ?
+'''
+
+
+sql_select_last_personal_info='''
+SELECT  id FROM personal_info ORDER BY id DESC LIMIT 1'''

@@ -4,10 +4,14 @@ import socket
 from PyQt5.QtCore import *
 from PyQt5.QtGui import QRegExpValidator, QIntValidator
 from PyQt5.QtWidgets import *
+
+from create_sql import create_connection
+import triggers
 from db import *
 from select_sql import *
 from insert_sql import *
 from update import *
+from datetime import datetime
 
 conn_tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_addr = ('127.0.0.1', 8888)
@@ -106,6 +110,7 @@ class TicketWindow(QMainWindow):
 
 
 class MainWindow(QMainWindow):
+
     def __init__(self):
         QMainWindow.__init__(self)
 
@@ -121,6 +126,7 @@ class MainWindow(QMainWindow):
         tabs.addTab(self.create_match(), "Создать матч")
         tabs.addTab(self.show_role_ui(), "Управление ролями")
         tabs.addTab(self.show_logg_ui(), "Логгирование")
+        tabs.tabBarClicked.connect(self.onTabBarClicked)
         layout.addWidget(tabs)
 
         w = QWidget()
@@ -128,9 +134,16 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(w)
         w.show()
 
+    def onTabBarClicked(self, index):
+        if index == 4 or index == 3:
+            self.update_log()
+        if index == 0:
+            self.update_ticket()
+
+
+
     # GUI для TAB просмотра матчей
     def show_sport_ui(self) -> QWidget:
-
 
         create_sport_tab = QWidget()
         layout = QFormLayout()
@@ -281,22 +294,91 @@ class MainWindow(QMainWindow):
         return show_sport_tab
 
     def show_role_ui(self) -> QWidget:
+        #pass
+        self.selected_login = ""  # создание для выбранного пользователя
         show_role_tab = QWidget()
         layout = QFormLayout()
         list_users = QListWidget()
-        items = ["user1", "user2", "user3"]
-        list_users.addItems(items)
+        conn = create_connection(db_file)  # ставим связь с базой
+        c = conn.cursor()
+        login_query = c.execute(sql_select_users_login)
+        list_logins = c.fetchall()
+
+        list_logins = [i[0] for i in list_logins] # получаем список всех логинов
+
+        personal_info_ids = c.execute(sql_select_users_all)
+        list_personal_info_ids = c.fetchall()  # получаем idшники чтобы получить фио
+        print(list_personal_info_ids)
+        list_fio = []
+        for id in list_personal_info_ids:
+            fio_query = c.execute(sql_select_personal_info_fio, id)
+            list_fio.append(c.fetchall()[0])
+        list_fio = [i[0] for i in list_fio]  # все ФИО
+        for i in range(len(list_logins)):
+            list_fio[i] = f"{list_logins[i]} ({list_fio[i]})"  # формат по вашему заказу
+        list_users.addItems(list_fio)  # добавляем в список для экрана
+        list_users.itemDoubleClicked.connect(self.getRole)  # если челик тапнет 2 раза, то идем в метод
         layout.addWidget(list_users)
-        admin_button = QRadioButton("Администратор")
-        moder_button = QRadioButton("Модератор")
-        user_button = QRadioButton("Пользователь")
-        layout.addWidget(admin_button)
-        layout.addWidget(moder_button)
-        layout.addWidget(user_button)
-        confirm_button = QPushButton("Изменить роль")
+        self.admin_button = QRadioButton("Администратор")
+        self.moder_button = QRadioButton("Модератор")
+        self.user_button = QRadioButton("Пользователь")  # кнопочки
+        layout.addWidget(self.admin_button)
+        layout.addWidget(self.moder_button)
+        layout.addWidget(self.user_button)
+        confirm_button = QPushButton("Изменить роль")  # кнопка подтверждений
+        confirm_button.clicked.connect(self.changeRole)  # меняем роль если кликнул
         layout.addWidget(confirm_button)
         show_role_tab.setLayout(layout)
         return show_role_tab
+
+    def changeRole(self):
+        # какую роль ставим?
+        if self.admin_button.isChecked():
+            role = 1
+        elif self.moder_button.isChecked():
+            role = 2
+        elif self.moder_button.isChecked():
+            role = 3
+        else:
+            message = QErrorMessage()
+            message.showMessage("Роль не выбрана!")
+            message.exec_()
+            return
+        if len(self.selected_login) == 0:
+            message = QErrorMessage()
+            message.showMessage("Пользователь не выбран!")
+            message.exec_()
+            return
+        # обновляем роль
+        conn = create_connection(db_file)
+        c = conn.cursor()
+        sql_update_user_role = '''
+        update user
+        set role_id = ?
+        where login = ?;
+        '''
+        role_query = c.execute(sql_update_user_role, (role, self.selected_login,))
+        conn.commit()
+
+    def getRole(self, item):
+        login = item.text().split()[0]
+        self.selected_login = login  # для будушего чтобы засунуть в логин роль
+        conn = create_connection(db_file)
+        c = conn.cursor()
+        role_query = c.execute(sql_select_users_role, (login,))
+        role = c.fetchall()
+        role = [i[0] for i in role]
+        role = role[0]  # текущая роль челикаа
+        if role == 1:
+            self.admin_button.setChecked(True)
+            self.admin_button.setChecked(False)
+        if role == 2:
+            self.moder_button.setChecked(True)
+            self.moder_button.setChecked(False)
+        if role == 3:
+            self.user_button.setChecked(True)
+            self.user_button.setChecked(False)
+        # обновляем кнопку от роли, почему так? потому что если оставить её чекнутой, то сколько ткать не будешь, кнопка не от лочится.
 
     def show_logg_ui(self) -> QWidget:
         show_logg_tab = QWidget()
@@ -305,12 +387,7 @@ class MainWindow(QMainWindow):
         self.t_logg = QTableWidget()
         self.t_logg.setColumnCount(3)
         self.t_logg.setHorizontalHeaderLabels(['Пользователь', 'Время', 'Действие'])
-        self.t_logg.setRowCount(1)
-
-        self.t_logg.setItem(0, 0, QTableWidgetItem("SAMPLE"))
-        self.t_logg.setItem(0, 1, QTableWidgetItem("SAMPLE"))
-        self.t_logg.setItem(0, 2, QTableWidgetItem("SAMPLE"))
-
+        self.update_log()
         self.t_logg.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.t_logg.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.t_logg.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContentsOnFirstShow)
@@ -324,9 +401,34 @@ class MainWindow(QMainWindow):
         show_logg_tab.setLayout(layout)
         return show_logg_tab
 
+    @pyqtSlot()
+    def update_log(self):
+        log_list = triggers.sql_execute("sql1.db", triggers.sql_select_logg_info)
+        self.t_logg.setRowCount(len(log_list))
+        for i in range(len(log_list)):
+            if log_list[i][0] != -1:
+                self.t_logg.setItem(i, 0, QTableWidgetItem('Пользователь (ID: ' + str(log_list[i][0]) + ')'))
+            elif log_list[i][1] != -1:
+                self.t_logg.setItem(i, 0, QTableWidgetItem('Билет (ID: ' + str(log_list[i][1]) + ')'))
+            else:
+                self.t_logg.setItem(i, 0, QTableWidgetItem('Событие (ID: ' + str(log_list[i][2]) + ')'))
+            self.t_logg.setItem(i, 1, QTableWidgetItem(str(log_list[i][3])))
+            self.t_logg.setItem(i, 2, QTableWidgetItem(str(log_list[i][4])))
+
 
     @pyqtSlot()
     def search_ticket(self):
+        print(self.e_search.text())
+        event_list = search_record(self.e_search.text(), db_file, sql_select_event_like_name)
+        desc_list = search_record(self.e_search.text(), db_file, sql_select_event_info_description)
+        event_desc_list = []
+        event_from_list = []
+        for item in desc_list:
+            event_from_list.append(read_table(db_file, sql_select_event_from_event_info_id, item[0]))
+        for item in event_from_list:
+            event_desc_list.append(item[0])
+        matches_list = event_list + event_desc_list
+        self.refresh(list(set(matches_list)))
         print('search')
 
     # берётся выделенный матч и подгружаются все нужные данные
@@ -352,8 +454,13 @@ class MainWindow(QMainWindow):
 
 
     @pyqtSlot()
-    def refresh(self):
-        match_list = read_table (db_file, sql_select_event_all, None)
+    def refresh(self, match_list=None):
+        self.t_sport.clear()
+
+        if match_list is None:
+            match_list = read_table (db_file, sql_select_event_all, None)
+
+        self.t_sport.setRowCount(len(match_list))
         for index, match in enumerate (match_list):
             event_info = read_table (db_file, sql_select_event_info_id, match [3])
             address_info = read_table (db_file, sql_select_address_id, match [4])
@@ -443,15 +550,65 @@ class AuthWindow(QMainWindow):
         print('\nВход')
         print('Логин  :', self.e_name_in.text())
         print('Пароль :', self.e_pass_in.text())
-        pass
+        conn = create_connection(db_file)
+        c = conn.cursor()
+        login_query = c.execute(sql_select_users_login_pass, (self.e_name_in.text(),))
+        password = c.fetchall()
+        if len(password) == 0:
+            msgBox = QMessageBox()
+            msgBox.setText("Неверный логин")
+            msgBox.exec()
+            return
+        password = password[0][0]
+        if password != self.e_pass_in.text():
+            msgBox = QMessageBox()
+            msgBox.setText("Неверный пароль")
+            msgBox.exec()
+            return
+        self.close()
+        self.window = MainWindow()
+        self.window.show()
 
     # Вход через регистрацию
     @pyqtSlot()
     def on_click_sign_up(self):
         print('\nРегистрация')
         print('Логин  :', self.e_name_up.text())
-        print('Пароль :', self.e_pass_up    .text())
-        pass
+        print('Пароль :', self.e_pass_up.text())
+        if self.e_pass_up.text() != self.e_pass_up_check.text():
+            msgBox = QMessageBox()
+            msgBox.setText("Введенные пароли не совпадают")
+            msgBox.exec()
+            return
+        conn = create_connection(db_file)
+        c = conn.cursor()
+        role_query = c.execute(sql_select_users_role, (self.e_name_up.text(),))
+        role = c.fetchall()
+        if len(role) > 0:
+            msgBox = QMessageBox()
+            msgBox.setText("Пользователь с таким именем уже существует")
+            msgBox.exec()
+            return
+        if len(self.e_pass_up.text()) < 8:
+            msgBox = QMessageBox()
+            msgBox.setText("Пароль должен содержать хотя бы 8 символов")
+            msgBox.exec()
+            return
+        conn = create_connection(db_file)
+
+        time = datetime.now().strftime("%B %d, %Y %I:%M%p")
+        execute_multiple_record(["",0], db_file, sql_insert_personal_info)
+        conn = create_connection(db_file)
+        last_personal_info_id_query = c.execute(sql_select_last_personal_info)
+        last_personal_info_id = c.fetchall()
+        last_personal_info_id = last_personal_info_id[0][0]
+
+        time = datetime.now().strftime("%B %d, %Y %I:%M%p")
+        execute_multiple_record([self.e_pass_up.text(), self.e_name_up.text(),time, 0, 3, last_personal_info_id], db_file, sql_insert_user)
+        self.close()
+        self.window = MainWindow()
+        self.window.show()
+
 
     # Вход без авторизации
     @pyqtSlot()
