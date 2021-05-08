@@ -4,6 +4,8 @@ import socket
 from PyQt5.QtCore import *
 from PyQt5.QtGui import QRegExpValidator, QIntValidator
 from PyQt5.QtWidgets import *
+
+import triggers
 from db import *
 from select_sql import *
 from insert_sql import *
@@ -305,12 +307,7 @@ class MainWindow(QMainWindow):
         self.t_logg = QTableWidget()
         self.t_logg.setColumnCount(3)
         self.t_logg.setHorizontalHeaderLabels(['Пользователь', 'Время', 'Действие'])
-        self.t_logg.setRowCount(1)
-
-        self.t_logg.setItem(0, 0, QTableWidgetItem("SAMPLE"))
-        self.t_logg.setItem(0, 1, QTableWidgetItem("SAMPLE"))
-        self.t_logg.setItem(0, 2, QTableWidgetItem("SAMPLE"))
-
+        self.update_log()
         self.t_logg.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.t_logg.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.t_logg.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContentsOnFirstShow)
@@ -323,6 +320,20 @@ class MainWindow(QMainWindow):
 
         show_logg_tab.setLayout(layout)
         return show_logg_tab
+
+    @pyqtSlot()
+    def update_log(self):
+        log_list = triggers.sql_execute("sql1.db", triggers.sql_select_logg_info)
+        self.t_logg.setRowCount(len(log_list))
+        for i in range(len(log_list)):
+            if log_list[i][0] != -1:
+                self.t_logg.setItem(i, 0, QTableWidgetItem('Пользователь (ID: ' + str(log_list[i][0]) + ')'))
+            elif log_list[i][1] != -1:
+                self.t_logg.setItem(i, 0, QTableWidgetItem('Билет (ID: ' + str(log_list[i][1]) + ')'))
+            else:
+                self.t_logg.setItem(i, 0, QTableWidgetItem('Событие (ID: ' + str(log_list[i][2]) + ')'))
+            self.t_logg.setItem(i, 1, QTableWidgetItem(str(log_list[i][3])))
+            self.t_logg.setItem(i, 2, QTableWidgetItem(str(log_list[i][4])))
 
 
     @pyqtSlot()
