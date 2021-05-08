@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="18bcad39-d25d-4dcc-830a-f86fc8231017" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/select_sql.py" beforeDir="false" afterPath="$PROJECT_DIR$/select_sql.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sql1.db" beforeDir="false" afterPath="$PROJECT_DIR$/sql1.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,6 +68,7 @@
       <workItem from="1620034238887" duration="2527000" />
       <workItem from="1620372755997" duration="578000" />
       <workItem from="1620460798236" duration="755000" />
+      <workItem from="1620461723531" duration="252000" />
     </task>
     <task id="LOCAL-00001" summary="merge_file">
       <created>1620460883870</created>
@@ -78,7 +77,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620460883870</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="merge roles&amp;searches">
+      <created>1620461899085</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1620461899085</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -86,29 +92,34 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="merge_file" />
-    <option name="LAST_COMMIT_MESSAGE" value="merge_file" />
+    <MESSAGE value="merge roles&amp;searches" />
+    <option name="LAST_COMMIT_MESSAGE" value="merge roles&amp;searches" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="585" y="114" key="CommitChangelistDialog2" timestamp="1620460883198">
+    <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1620462125715">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="585" y="114" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1620460883198" />
-    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1620461779027">
+    <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1620462125715" />
+    <state x="585" y="114" key="CommitChangelistDialog2" timestamp="1620461898514">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1620461779027" />
-    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1620461779026">
+    <state x="585" y="114" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1620461898514" />
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1620462129575">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1620461779026" />
-    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1620461779026">
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1620462129575" />
+    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1620462129575">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1620461779026" />
-    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1620461779027">
+    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1620462129575" />
+    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1620462129575">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1620461779027" />
+    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1620462129575" />
+    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1620462129575">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1620462129575" />
     <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1620036783561">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -137,6 +148,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="742" y="231" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1620460845211" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1620461911085">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1620461911085" />
     <state x="656" y="344" key="com.intellij.ide.util.TipDialog" timestamp="1620372767930">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -176,6 +191,6 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/GoTicket$main.coverage" NAME="main Coverage Results" MODIFIED="1620461779018" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/GoTicket$main.coverage" NAME="main Coverage Results" MODIFIED="1620462129568" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
