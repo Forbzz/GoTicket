@@ -4,6 +4,8 @@ import socket
 from PyQt5.QtCore import *
 from PyQt5.QtGui import QRegExpValidator, QIntValidator
 from PyQt5.QtWidgets import *
+
+from create_sql import create_connection
 from db import *
 from select_sql import *
 from insert_sql import *
@@ -280,22 +282,90 @@ class MainWindow(QMainWindow):
         return show_sport_tab
 
     def show_role_ui(self) -> QWidget:
+        self.selected_login = ""  # создание для выбранного пользователя
         show_role_tab = QWidget()
         layout = QFormLayout()
         list_users = QListWidget()
-        items = ["user1", "user2", "user3"]
-        list_users.addItems(items)
+        conn = create_connection(db_file)  # ставим связь с базой
+        c = conn.cursor()
+        login_query = c.execute(sql_select_users_login)
+        list_logins = c.fetchall()
+
+        list_logins = [i[0] for i in list_logins] # получаем список всех логинов
+
+        personal_info_ids = c.execute(sql_select_users_all)
+        list_personal_info_ids = c.fetchall()  # получаем idшники чтобы получить фио
+        print(list_personal_info_ids)
+        list_fio = []
+        for id in list_personal_info_ids:
+            fio_query = c.execute(sql_select_personal_info_fio, id)
+            list_fio.append(c.fetchall()[0])
+        list_fio = [i[0] for i in list_fio]  # все ФИО
+        for i in range(len(list_logins)):
+            list_fio[i] = f"{list_logins[i]} ({list_fio[i]})"  # формат по вашему заказу
+        list_users.addItems(list_fio)  # добавляем в список для экрана
+        list_users.itemDoubleClicked.connect(self.getRole)  # если челик тапнет 2 раза, то идем в метод
         layout.addWidget(list_users)
-        admin_button = QRadioButton("Администратор")
-        moder_button = QRadioButton("Модератор")
-        user_button = QRadioButton("Пользователь")
-        layout.addWidget(admin_button)
-        layout.addWidget(moder_button)
-        layout.addWidget(user_button)
-        confirm_button = QPushButton("Изменить роль")
+        self.admin_button = QRadioButton("Администратор")
+        self.moder_button = QRadioButton("Модератор")
+        self.user_button = QRadioButton("Пользователь")  # кнопочки
+        layout.addWidget(self.admin_button)
+        layout.addWidget(self.moder_button)
+        layout.addWidget(self.user_button)
+        confirm_button = QPushButton("Изменить роль")  # кнопка подтверждений
+        confirm_button.clicked.connect(self.changeRole)  # меняем роль если кликнул
         layout.addWidget(confirm_button)
         show_role_tab.setLayout(layout)
         return show_role_tab
+
+    def changeRole(self):
+        # какую роль ставим?
+        if self.admin_button.isChecked():
+            role = 1
+        elif self.moder_button.isChecked():
+            role = 2
+        elif self.moder_button.isChecked():
+            role = 3
+        else:
+            message = QErrorMessage()
+            message.showMessage("Роль не выбрана!")
+            message.exec_()
+            return
+        if len(self.selected_login) == 0:
+            message = QErrorMessage()
+            message.showMessage("Пользователь не выбран!")
+            message.exec_()
+            return
+        # обновляем роль
+        conn = create_connection(db_file)
+        c = conn.cursor()
+        sql_update_user_role = '''
+        update user
+        set role_id = ?
+        where login = ?;
+        '''
+        role_query = c.execute(sql_update_user_role, (role, self.selected_login,))
+        conn.commit()
+
+    def getRole(self, item):
+        login = item.text().split()[0]
+        self.selected_login = login  # для будушего чтобы засунуть в логин роль
+        conn = create_connection(db_file)
+        c = conn.cursor()
+        role_query = c.execute(sql_select_users_role, (login,))
+        role = c.fetchall()
+        role = [i[0] for i in role]
+        role = role[0]  # текущая роль челикаа
+        if role == 1:
+            self.admin_button.setChecked(True)
+            self.admin_button.setChecked(False)
+        if role == 2:
+            self.moder_button.setChecked(True)
+            self.moder_button.setChecked(False)
+        if role == 3:
+            self.user_button.setChecked(True)
+            self.user_button.setChecked(False)
+        # обновляем кнопку от роли, почему так? потому что если оставить её чекнутой, то сколько ткать не будешь, кнопка не от лочится.
 
     def show_logg_ui(self) -> QWidget:
         show_logg_tab = QWidget()

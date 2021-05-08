@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="18bcad39-d25d-4dcc-830a-f86fc8231017" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.py" beforeDir="false" afterPath="$PROJECT_DIR$/db.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db_sql.py" beforeDir="false" afterPath="$PROJECT_DIR$/db_sql.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/select_sql.py" beforeDir="false" afterPath="$PROJECT_DIR$/select_sql.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sql1.db" beforeDir="false" afterPath="$PROJECT_DIR$/sql1.db" afterDir="false" />
     </list>
@@ -26,34 +22,10 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
-  <component name="RunManager" selected="Python.main">
-    <configuration name="db" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="GoTicket" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/db.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="GoTicket" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -79,7 +51,6 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.main" />
-        <item itemvalue="Python.db" />
       </list>
     </recent_temporary>
   </component>
@@ -98,50 +69,74 @@
       <workItem from="1619943246883" duration="5506000" />
       <workItem from="1620034238887" duration="2527000" />
       <workItem from="1620372755997" duration="578000" />
-      <workItem from="1620373744552" duration="6382000" />
+      <workItem from="1620460798236" duration="755000" />
     </task>
+    <task id="LOCAL-00001" summary="merge_file">
+      <created>1620460883870</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1620460883870</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="merge_file" />
+    <option name="LAST_COMMIT_MESSAGE" value="merge_file" />
+  </component>
   <component name="WindowStateProjectService">
-    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1620379170931">
+    <state x="585" y="114" key="CommitChangelistDialog2" timestamp="1620460883198">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1620379170931" />
-    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1620379170931">
+    <state x="585" y="114" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1620460883198" />
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1620461779027">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1620379170931" />
-    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1620379170931">
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1620461779027" />
+    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1620461779026">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1620379170931" />
-    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1620379170931">
+    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1620461779026" />
+    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1620461779026">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1620379170931" />
-    <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1620378549981">
+    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1620461779026" />
+    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1620461779027">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1620378549981" />
-    <state width="1877" height="348" key="GridCell.Tab.1.center" timestamp="1620378549981">
+    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1620461779027" />
+    <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1620036783561">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1620378549981" />
-    <state width="1877" height="348" key="GridCell.Tab.1.left" timestamp="1620378549981">
+    <state width="1877" height="348" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1620036783561" />
+    <state width="1877" height="348" key="GridCell.Tab.1.center" timestamp="1620036783561">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1620378549981" />
-    <state width="1877" height="348" key="GridCell.Tab.1.right" timestamp="1620378549981">
+    <state width="1877" height="348" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1620036783561" />
+    <state width="1877" height="348" key="GridCell.Tab.1.left" timestamp="1620036783561">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1620378549981" />
-    <state x="792" y="231" key="RollbackChangesDialog" timestamp="1620374366103">
+    <state width="1877" height="348" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1620036783561" />
+    <state width="1877" height="348" key="GridCell.Tab.1.right" timestamp="1620036783561">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="792" y="231" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1620374366103" />
+    <state width="1877" height="348" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1620036783561" />
+    <state x="184" y="86" key="MergeDialog" timestamp="1620460906902">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="184" y="86" key="MergeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1620460906902" />
+    <state x="672" y="236" key="MultipleFileMergeDialog" timestamp="1620460926137">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="672" y="236" key="MultipleFileMergeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1620460926137" />
+    <state x="742" y="231" key="RollbackChangesDialog" timestamp="1620460845211">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="742" y="231" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1620460845211" />
     <state x="656" y="344" key="com.intellij.ide.util.TipDialog" timestamp="1620372767930">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -151,9 +146,24 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/db.py</url>
-          <line>52</line>
-          <option name="timeStamp" value="14" />
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>63</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>134</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>349</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>150</line>
+          <option name="timeStamp" value="9" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -166,7 +176,6 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/GoTicket$main.coverage" NAME="main Coverage Results" MODIFIED="1620378892750" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/GoTicket$db.coverage" NAME="db Coverage Results" MODIFIED="1620378196269" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/GoTicket$main.coverage" NAME="main Coverage Results" MODIFIED="1620461779018" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

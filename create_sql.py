@@ -11,6 +11,7 @@ sql_create_user = """
     CREATE TABLE IF NOT EXISTS USER(
     id integer primary key autoincrement not null,
     password VARCHAR(200) not null,
+    login VARCHAR(200) not null,
     balance integer,
     role_id integer,
     personal_info_id integer,
