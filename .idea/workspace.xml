@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="17ab2a12-dbc3-4fc7-95cc-19b22c835291" name="Default Changelist" comment="merge loggin and search">
-      <change afterPath="$PROJECT_DIR$/triggers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/GoTicket.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/GoTicket.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/create_sql.py" beforeDir="false" afterPath="$PROJECT_DIR$/create_sql.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sql1.db" beforeDir="false" afterPath="$PROJECT_DIR$/sql1.db" afterDir="false" />
     </list>
@@ -13,15 +13,25 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1sFabdQexGangZe0C45pYJWwZGX" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/.idea" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -81,6 +91,7 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -92,60 +103,72 @@
       <option name="presentableId" value="Default" />
       <updated>1620466521972</updated>
       <workItem from="1620466523971" duration="1623000" />
+      <workItem from="1620470868802" duration="38000" />
+      <workItem from="1620470907533" duration="383000" />
+      <workItem from="1620471991688" duration="494000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="merge loggin and search" />
     <option name="LAST_COMMIT_MESSAGE" value="merge loggin and search" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1620466660991">
+    <state x="585" y="114" key="CommitChangelistDialog2" timestamp="1620472611472">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1620466660991" />
-    <state x="515" y="30" key="CommitChangelistDialog2" timestamp="1620468167748">
+    <state x="585" y="114" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1620472611472" />
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1620472618609">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="515" y="30" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1620468167748" />
-    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1620468198965">
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1620472618609" />
+    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1620472618609">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1620468198965" />
-    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1620468198965">
+    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1620472618609" />
+    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1620472618609">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1620468198965" />
-    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1620468198965">
+    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1620472618609" />
+    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1620472618609">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1620468198965" />
-    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1620468198965">
+    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1620472618609" />
+    <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1620472354490">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1620468198965" />
-    <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1620467386204">
+    <state width="1877" height="348" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1620472354490" />
+    <state width="1877" height="348" key="GridCell.Tab.1.center" timestamp="1620472354490">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1620467386204" />
-    <state width="1877" height="348" key="GridCell.Tab.1.center" timestamp="1620467386204">
+    <state width="1877" height="348" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1620472354490" />
+    <state width="1877" height="348" key="GridCell.Tab.1.left" timestamp="1620472354490">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1620467386204" />
-    <state width="1877" height="348" key="GridCell.Tab.1.left" timestamp="1620467386204">
+    <state width="1877" height="348" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1620472354490" />
+    <state width="1877" height="348" key="GridCell.Tab.1.right" timestamp="1620472354490">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1620467386204" />
-    <state width="1877" height="348" key="GridCell.Tab.1.right" timestamp="1620467386204">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1620467386204" />
+    <state width="1877" height="348" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1620472354490" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/GoTicket$main.coverage" NAME="main Coverage Results" MODIFIED="1620468198958" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/GoTicket$main.coverage" NAME="main Coverage Results" MODIFIED="1620472561807" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/GoTicket$create_sql.coverage" NAME="create_sql Coverage Results" MODIFIED="1620467619223" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

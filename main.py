@@ -110,21 +110,36 @@ class TicketWindow(QMainWindow):
 
 class MainWindow(QMainWindow):
 
-    def __init__(self):
+    def __init__(self, user=None):
         QMainWindow.__init__(self)
-
+        self.role = 0
+        self.user = user
+        if user is not None:
+            print("незареганный")
+            conn = create_connection(db_file)
+            c = conn.cursor()
+            role_query = c.execute(sql_select_users_role, (user,))
+            role = c.fetchall()
+            role = [i[0] for i in role]
+            self.role = role[0]  # текущая роль челикаа
         self.setMinimumSize(QSize(700, 500))
         self.setWindowTitle("Go Ticket")
 
         layout = QVBoxLayout()
         self.setLayout(layout)
-
+        print("ROLE", self.role)
         tabs = QTabWidget()
-        tabs.addTab(self.show_sport_ui(), "Просмот матчей")
-        tabs.addTab(self.stat_user_ui(), "Статистика пользователей")
-        tabs.addTab(self.create_match(), "Создать матч")
-        tabs.addTab(self.show_role_ui(), "Управление ролями")
-        tabs.addTab(self.show_logg_ui(), "Логгирование")
+        tabs.addTab (self.show_sport_ui (), "Просмот матчей")
+
+        if self.role == 2:
+            tabs.addTab (self.create_match (), "Создать матч")
+            tabs.addTab (self.stat_user_ui (), "Статистика пользователей")
+        if self.role == 1:
+            tabs.addTab (self.show_role_ui (), "Управление ролями")
+            tabs.addTab (self.show_logg_ui (), "Логгирование")
+
+
+
         tabs.tabBarClicked.connect(self.onTabBarClicked)
         layout.addWidget(tabs)
 
@@ -181,7 +196,8 @@ class MainWindow(QMainWindow):
         self.t_sport.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.t_sport.setSelectionBehavior(QAbstractItemView.SelectRows)
 
-        self.t_sport.itemDoubleClicked.connect(self.buy_ticket)
+        if self.role != 0:
+            self.t_sport.itemDoubleClicked.connect(self.buy_ticket)
         self.t_sport.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContentsOnFirstShow)
         header = self.t_sport.horizontalHeader()
         header.setSectionResizeMode(0, QHeaderView.Stretch)
@@ -592,7 +608,7 @@ class AuthWindow(QMainWindow):
             msgBox.exec()
             return
         self.close()
-        self.window = MainWindow()
+        self.window = MainWindow(self.e_name_in.text())
         self.window.show()
 
     # Вход через регистрацию
@@ -632,7 +648,7 @@ class AuthWindow(QMainWindow):
         time = datetime.now().strftime("%B %d, %Y %I:%M%p")
         execute_multiple_record([self.e_pass_up.text(), self.e_name_up.text(),time, 0, 3, last_personal_info_id], db_file, sql_insert_user)
         self.close()
-        self.window = MainWindow()
+        self.window = MainWindow(self.e_name_in.text())
         self.window.show()
 
 
