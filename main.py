@@ -6,6 +6,7 @@ from PyQt5.QtGui import QRegExpValidator, QIntValidator
 from PyQt5.QtWidgets import *
 
 from create_sql import create_connection
+import triggers
 from db import *
 from select_sql import *
 from insert_sql import *
@@ -108,6 +109,7 @@ class TicketWindow(QMainWindow):
 
 
 class MainWindow(QMainWindow):
+
     def __init__(self):
         QMainWindow.__init__(self)
 
@@ -123,12 +125,21 @@ class MainWindow(QMainWindow):
         tabs.addTab(self.create_match(), "Создать матч")
         tabs.addTab(self.show_role_ui(), "Управление ролями")
         tabs.addTab(self.show_logg_ui(), "Логгирование")
+        tabs.tabBarClicked.connect(self.onTabBarClicked)
         layout.addWidget(tabs)
 
         w = QWidget()
         w.setLayout(layout)
         self.setCentralWidget(w)
         w.show()
+
+    def onTabBarClicked(self, index):
+        if index == 4 or index == 3:
+            self.update_log()
+        if index == 0:
+            self.update_ticket()
+
+
 
     # GUI для TAB просмотра матчей
     def show_sport_ui(self) -> QWidget:
@@ -282,6 +293,7 @@ class MainWindow(QMainWindow):
         return show_sport_tab
 
     def show_role_ui(self) -> QWidget:
+        #pass
         self.selected_login = ""  # создание для выбранного пользователя
         show_role_tab = QWidget()
         layout = QFormLayout()
@@ -374,12 +386,7 @@ class MainWindow(QMainWindow):
         self.t_logg = QTableWidget()
         self.t_logg.setColumnCount(3)
         self.t_logg.setHorizontalHeaderLabels(['Пользователь', 'Время', 'Действие'])
-        self.t_logg.setRowCount(1)
-
-        self.t_logg.setItem(0, 0, QTableWidgetItem("SAMPLE"))
-        self.t_logg.setItem(0, 1, QTableWidgetItem("SAMPLE"))
-        self.t_logg.setItem(0, 2, QTableWidgetItem("SAMPLE"))
-
+        self.update_log()
         self.t_logg.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.t_logg.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.t_logg.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContentsOnFirstShow)
@@ -392,6 +399,20 @@ class MainWindow(QMainWindow):
 
         show_logg_tab.setLayout(layout)
         return show_logg_tab
+
+    @pyqtSlot()
+    def update_log(self):
+        log_list = triggers.sql_execute("sql1.db", triggers.sql_select_logg_info)
+        self.t_logg.setRowCount(len(log_list))
+        for i in range(len(log_list)):
+            if log_list[i][0] != -1:
+                self.t_logg.setItem(i, 0, QTableWidgetItem('Пользователь (ID: ' + str(log_list[i][0]) + ')'))
+            elif log_list[i][1] != -1:
+                self.t_logg.setItem(i, 0, QTableWidgetItem('Билет (ID: ' + str(log_list[i][1]) + ')'))
+            else:
+                self.t_logg.setItem(i, 0, QTableWidgetItem('Событие (ID: ' + str(log_list[i][2]) + ')'))
+            self.t_logg.setItem(i, 1, QTableWidgetItem(str(log_list[i][3])))
+            self.t_logg.setItem(i, 2, QTableWidgetItem(str(log_list[i][4])))
 
 
     @pyqtSlot()
