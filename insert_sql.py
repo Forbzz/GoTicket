@@ -16,7 +16,7 @@ sql_insert_address = """
     INSERT INTO address (country_id, city_id, street_id) VALUES (?,?,?);
 """
 sql_insert_ticket = """
-    INSERT INTO ticket (price, date, user_id, event_id) VALUES (?,?,?,?,?);
+    INSERT INTO ticket (price, date, user_id, event_id) VALUES (?,?,?,?);
 """
 
 sql_insert_event = """

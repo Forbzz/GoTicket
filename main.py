@@ -54,7 +54,7 @@ class OkWindow(QMainWindow):
 
 
 class TicketWindow(QMainWindow):
-    def __init__(self, match, event_info, country, city, street):
+    def __init__(self, match, event_info, country, city, street, user, name):
         QMainWindow.__init__(self)
 
         self.setMinimumSize(QSize(400, 200))
@@ -64,7 +64,7 @@ class TicketWindow(QMainWindow):
         self.setLayout(layout)
 
         b_buy = QPushButton('Купить', self)
-        b_buy.clicked.connect(lambda: self.buy(match[0][2], match[0][0]))
+        b_buy.clicked.connect(lambda: self.buy(match[0][2], match[0][0], user, name))
         layout.addRow(b_buy)
 
         self.l_test1 = QLabel(match[0][1])
@@ -98,9 +98,17 @@ class TicketWindow(QMainWindow):
 
     # покупка-обновление количества билетов
     @pyqtSlot()
-    def buy(self, ticket_amount, id):
-        print('buy', ticket_amount)
+    def buy(self, ticket_amount, id, user, name):
+        print('Покупка', ticket_amount)
         ticket_amount -= 1
+        print ("Пользователь", user)
+        user_info = read_table(db_file, sqL_select_user_from_login, user)
+        print("В итоге:", user_info)
+
+        match = read_table(db_file, sql_select_event_name, name)
+        time = datetime.now ().strftime ("%B %d, %Y %I:%M%p")
+
+        execute_multiple_record([0, time, user_info[0][0], match[0][0]], db_file, sql_insert_ticket)
         execute_multiple_record([str(ticket_amount), str(id)], db_file, sql_update_event_tickets)
         self.close()
         self.window = OkWindow()
@@ -131,12 +139,13 @@ class MainWindow(QMainWindow):
         tabs = QTabWidget()
         tabs.addTab (self.show_sport_ui (), "Просмот матчей")
 
-        if self.role == 2:
-            tabs.addTab (self.create_match (), "Создать матч")
-            tabs.addTab (self.stat_user_ui (), "Статистика пользователей")
-        if self.role == 1:
-            tabs.addTab (self.show_role_ui (), "Управление ролями")
-            tabs.addTab (self.show_logg_ui (), "Логгирование")
+        # if self.role == 2:
+        tabs.addTab (self.stat_user_ui (), "Статистика пользователей")
+        tabs.addTab (self.create_match (), "Создать матч")
+        #tabs.addTab (self.stat_user_ui (), "Статистика пользователей")
+        # if self.role == 1:
+        tabs.addTab (self.show_role_ui (), "Управление ролями")
+        tabs.addTab (self.show_logg_ui (), "Логгирование")
 
 
 
@@ -445,21 +454,6 @@ class MainWindow(QMainWindow):
 
     @pyqtSlot()
     def search_ticket(self):
-        # print(self.e_search.text())
-        # event_list = search_record(self.e_search.text(), db_file, sql_select_event_like_name)
-        # desc_list = search_record(self.e_search.text(), db_file, sql_select_event_info_description)
-        # print("DESC", desc_list)
-        # event_desc_list = []
-        # event_from_list = []
-        # for item in desc_list:
-        #     event_from_list.append(read_table(db_file, sql_select_event_from_event_info_id, item[0]))
-        # for item in event_from_list:
-        #     event_desc_list.append(item[0])
-        # print(event_list)
-        # print(event_desc_list)
-        # matches_list = event_list + event_desc_list
-        # self.refresh(list(set(matches_list)))
-        # print('search')
         print (self.e_search.text ())
         event_list = search_record (self.e_search.text(), db_file, sql_select_event_like_name)
         desc_list = search_record (self.e_search.text(), db_file, sql_select_event_info_description_like)
@@ -468,7 +462,8 @@ class MainWindow(QMainWindow):
         for item in desc_list:
             event_from_list.append (read_table (db_file, sql_select_event_from_event_info_id, item [0]))
         for item in event_from_list:
-            event_desc_list.append (item [0])
+            if item:
+                event_desc_list.append(item[0])
         matches_list = event_list + event_desc_list
         self.refresh (list (set (matches_list)))
         print ('search')
@@ -476,16 +471,17 @@ class MainWindow(QMainWindow):
     # берётся выделенный матч и подгружаются все нужные данные
     @pyqtSlot()
     def buy_ticket(self):
+
         name = self.t_sport.selectedItems()[0].text()
         match = read_table(db_file, sql_select_event_name, name)
+
         event_info = read_table (db_file, sql_select_event_info_id, match[0][3])
         address_info = read_table (db_file, sql_select_address_id, match[0][4])
         country = read_table (db_file, sql_select_country_id, address_info[0][1])
         city = read_table (db_file, sql_select_city_id, address_info[0][2])
         street = read_table (db_file, sql_select_street_id, address_info[0][3])
 
-
-        self.window = TicketWindow(match, event_info, country, city, street)
+        self.window = TicketWindow(match, event_info, country, city, street, self.user, name)
         self.window.show()
         app.exec_()
 
@@ -502,20 +498,27 @@ class MainWindow(QMainWindow):
         if match_list is None:
             match_list = read_table (db_file, sql_select_event_all, None)
 
-        self.t_sport.setRowCount(len(match_list))
-        for index, match in enumerate (match_list):
-            event_info = read_table (db_file, sql_select_event_info_id, match [3])
-            address_info = read_table (db_file, sql_select_address_id, match [4])
-            country = read_table (db_file, sql_select_country_id, address_info [0] [1])
-            city = read_table (db_file, sql_select_city_id, address_info [0] [2])
-            street = read_table (db_file, sql_select_street_id, address_info [0] [3])
 
-            self.t_sport.setItem (index, 0, QTableWidgetItem (match [1]))
-            self.t_sport.setItem (index, 1, QTableWidgetItem (str (event_info [0] [2])))
-            self.t_sport.setItem (index, 2, QTableWidgetItem (str (match_list [index] [2])))
-            self.t_sport.setItem (index, 3, QTableWidgetItem (event_info [0] [1]))
-            self.t_sport.setItem (index, 4, QTableWidgetItem (country [0] [1] + "," + city [0] [1] + "," + street [0] [1]))
+        index = 0
+        item = 0
+        for match in match_list:
+            if match[2] < 1:
+                item+=1
+            if match[2] > 0:
+                event_info = read_table(db_file, sql_select_event_info_id, match [3])
+                address_info = read_table(db_file, sql_select_address_id, match [4])
+                country = read_table(db_file, sql_select_country_id, address_info [0] [1])
+                city = read_table(db_file, sql_select_city_id, address_info [0] [2])
+                street = read_table(db_file, sql_select_street_id, address_info [0] [3])
 
+                self.t_sport.setItem(index, 0, QTableWidgetItem(match[1]))
+                self.t_sport.setItem(index, 1, QTableWidgetItem(str(event_info[0] [2])))
+                self.t_sport.setItem(index, 2, QTableWidgetItem(str(match_list[item][2])))
+                self.t_sport.setItem(index, 3, QTableWidgetItem(event_info [0] [1]))
+                self.t_sport.setItem(index, 4, QTableWidgetItem(country [0] [1] + "," + city [0] [1] + "," + street [0] [1]))
+                index+=1
+                item+=1
+        self.t_sport.setRowCount (index)
 
 class AuthWindow(QMainWindow):
     def __init__(self):

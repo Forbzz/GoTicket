@@ -61,6 +61,8 @@ sql_select_users_role = '''
 select role_id from user where login = ?;'''
 sql_select_users_login_pass = '''
 select password from user where login = ?;'''
+sqL_select_user_from_login = '''
+select * from user where login = ?;'''
 sql_select_event_like_name = '''
 SELECT * FROM event WHERE mylower(name) LIKE ?
 '''

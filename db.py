@@ -38,7 +38,7 @@ def read_table(db_file, selector_script, search_name):
         else:
             cursor.execute(selector_script, (str(search_name),))
         records = cursor.fetchall()
-        print(records)
+        # print(records)
         cursor.close()
         sqlite_connection.close()
         return records
