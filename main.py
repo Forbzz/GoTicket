@@ -122,6 +122,7 @@ class MainWindow(QMainWindow):
         QMainWindow.__init__(self)
         self.role = 0
         self.user = user
+        self.list_roles = []
         if user is not None:
             print("незареганный")
             conn = create_connection(db_file)
@@ -142,7 +143,7 @@ class MainWindow(QMainWindow):
         self.setLayout(layout)
         print("ROLE", self.role)
         tabs = QTabWidget()
-        tabs.addTab (self.show_sport_ui (), "Просмот матчей")
+        tabs.addTab (self.show_sport_ui (self.list_roles), "Просмот матчей")
 
         if 'MODERATOR' in self.list_roles:
             tabs.addTab (self.stat_user_ui (), "Статистика пользователей")
@@ -183,7 +184,7 @@ class MainWindow(QMainWindow):
 
 
     # GUI для TAB просмотра матчей
-    def show_sport_ui(self) -> QWidget:
+    def show_sport_ui(self, list_roles) -> QWidget:
 
         create_sport_tab = QWidget()
         layout = QFormLayout()
@@ -210,7 +211,7 @@ class MainWindow(QMainWindow):
         self.t_sport.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.t_sport.setSelectionBehavior(QAbstractItemView.SelectRows)
 
-        if self.role != 0:
+        if "USER" in list_roles:
             self.t_sport.itemDoubleClicked.connect(self.buy_ticket)
         self.t_sport.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContentsOnFirstShow)
         header = self.t_sport.horizontalHeader()
