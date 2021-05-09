@@ -58,7 +58,7 @@ select login from user;'''
 sql_select_users_all = '''
 select personal_info_id from user;'''
 sql_select_users_role = '''
-select role_id from user where login = ?;'''
+SELECT role.name FROM user JOIN role ON user.role_id = role.id WHERE user.login = ?;'''
 sql_select_users_login_pass = '''
 select password from user where login = ?;'''
 sqL_select_user_from_login = '''
@@ -74,3 +74,11 @@ SELECT * FROM event WHERE event_info_id = ?
 
 sql_select_last_personal_info='''
 SELECT  id FROM personal_info ORDER BY id DESC LIMIT 1'''
+sql_select_list_roles='''
+WITH RECURSIVE
+  under_role(name) AS (
+    VALUES(?) --VALUES(?)
+    UNION ALL
+    SELECT role.name FROM role JOIN under_role ON role.boss = under_role.name
+  )
+SELECT name FROM under_role;'''

@@ -122,6 +122,7 @@ class MainWindow(QMainWindow):
         QMainWindow.__init__(self)
         self.role = 0
         self.user = user
+        self.list_roles = []
         if user is not None:
             print("незареганный")
             conn = create_connection(db_file)
@@ -130,6 +131,11 @@ class MainWindow(QMainWindow):
             role = c.fetchall()
             role = [i[0] for i in role]
             self.role = role[0]  # текущая роль челикаа
+            c.execute(sql_select_list_roles, (self.role,))
+            role = c.fetchall()
+            role = [i[0] for i in role]
+            self.list_roles = role
+            print(role)
         self.setMinimumSize(QSize(700, 500))
         self.setWindowTitle("Go Ticket")
 
@@ -137,15 +143,15 @@ class MainWindow(QMainWindow):
         self.setLayout(layout)
         print("ROLE", self.role)
         tabs = QTabWidget()
-        tabs.addTab (self.show_sport_ui (), "Просмот матчей")
+        tabs.addTab (self.show_sport_ui (self.list_roles), "Просмот матчей")
 
-        # if self.role == 2:
-        tabs.addTab (self.stat_user_ui (), "Статистика пользователей")
-        tabs.addTab (self.create_match (), "Создать матч")
+        if 'MODERATOR' in self.list_roles:
+            tabs.addTab (self.stat_user_ui (), "Статистика пользователей")
+            tabs.addTab (self.create_match (), "Создать матч")
         #tabs.addTab (self.stat_user_ui (), "Статистика пользователей")
-        # if self.role == 1:
-        tabs.addTab (self.show_role_ui (), "Управление ролями")
-        tabs.addTab (self.show_logg_ui (), "Логгирование")
+        if 'ADMIN' in self.list_roles:
+            tabs.addTab (self.show_role_ui (), "Управление ролями")
+            tabs.addTab (self.show_logg_ui (), "Логгирование")
 
 
 
@@ -178,7 +184,7 @@ class MainWindow(QMainWindow):
 
 
     # GUI для TAB просмотра матчей
-    def show_sport_ui(self) -> QWidget:
+    def show_sport_ui(self, list_roles) -> QWidget:
 
         create_sport_tab = QWidget()
         layout = QFormLayout()
@@ -205,7 +211,7 @@ class MainWindow(QMainWindow):
         self.t_sport.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.t_sport.setSelectionBehavior(QAbstractItemView.SelectRows)
 
-        if self.role != 0:
+        if "USER" in list_roles:
             self.t_sport.itemDoubleClicked.connect(self.buy_ticket)
         self.t_sport.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContentsOnFirstShow)
         header = self.t_sport.horizontalHeader()
@@ -405,13 +411,13 @@ class MainWindow(QMainWindow):
         role = c.fetchall()
         role = [i[0] for i in role]
         role = role[0]  # текущая роль челикаа
-        if role == 1:
+        if role == 'ADMIN':
             self.admin_button.setChecked(True)
             self.admin_button.setChecked(False)
-        if role == 2:
+        if role == 'MODERATOR':
             self.moder_button.setChecked(True)
             self.moder_button.setChecked(False)
-        if role == 3:
+        if role == 'USER':
             self.user_button.setChecked(True)
             self.user_button.setChecked(False)
         # обновляем кнопку от роли, почему так? потому что если оставить её чекнутой, то сколько ткать не будешь, кнопка не от лочится.
@@ -651,7 +657,7 @@ class AuthWindow(QMainWindow):
         time = datetime.now().strftime("%B %d, %Y %I:%M%p")
         execute_multiple_record([self.e_pass_up.text(), self.e_name_up.text(),time, 0, 3, last_personal_info_id], db_file, sql_insert_user)
         self.close()
-        self.window = MainWindow(self.e_name_in.text())
+        self.window = MainWindow(user = self.e_name_up.text())
         self.window.show()
 
 

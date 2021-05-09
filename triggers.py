@@ -173,33 +173,33 @@ def create_table(conn, create_table_sql):
         print(e)
 
 
-conn = create_connection(db)
-if conn is not None:
-    create_table(conn, sql_drop1)
-    create_table(conn, sql_drop2)
-    create_table(conn, sql_drop3)
-    create_table(conn, sql_drop4)
-    create_table(conn, sql_drop5)
-    create_table(conn, sql_drop6)
-    create_table(conn, sql_drop7)
-    create_table(conn, sql_drop8)
-    create_table(conn, sql_drop9)
-    create_table(conn, sql_drop10)
-
-    create_table(conn, sql_create_log_table)
-    create_table(conn, sql_trigger_insert_user)
-    create_table(conn, sql_trigger_update_user)
-    create_table(conn, sql_trigger_delete_user)
-
-    create_table(conn, sql_trigger_insert_ticket)
-    create_table(conn, sql_trigger_update_ticket)
-    create_table(conn, sql_trigger_delete_ticket)
-
-    create_table(conn, sql_trigger_insert_event)
-    create_table(conn, sql_trigger_update_event)
-    create_table(conn, sql_trigger_delete_event)
-
-    print('gc!')
-else:
-    print("Error! cannot the databese connection.")
+# conn = create_connection(db)
+# if conn is not None:
+#     create_table(conn, sql_drop1)
+#     create_table(conn, sql_drop2)
+#     create_table(conn, sql_drop3)
+#     create_table(conn, sql_drop4)
+#     create_table(conn, sql_drop5)
+#     create_table(conn, sql_drop6)
+#     create_table(conn, sql_drop7)
+#     create_table(conn, sql_drop8)
+#     create_table(conn, sql_drop9)
+#     create_table(conn, sql_drop10)
+#
+#     create_table(conn, sql_create_log_table)
+#     create_table(conn, sql_trigger_insert_user)
+#     create_table(conn, sql_trigger_update_user)
+#     create_table(conn, sql_trigger_delete_user)
+#
+#     create_table(conn, sql_trigger_insert_ticket)
+#     create_table(conn, sql_trigger_update_ticket)
+#     create_table(conn, sql_trigger_delete_ticket)
+#
+#     create_table(conn, sql_trigger_insert_event)
+#     create_table(conn, sql_trigger_update_event)
+#     create_table(conn, sql_trigger_delete_event)
+#
+#     print('gc!')
+# else:
+#     print("Error! cannot the databese connection.")
 
