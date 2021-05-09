@@ -482,11 +482,9 @@ class MainWindow(QMainWindow):
 
     @pyqtSlot()
     def refresh(self, match_list=None):
-        self.t_sport.clear()
 
         if match_list is None:
             match_list = read_table (db_file, sql_select_event_all, None)
-
 
         index = 0
         item = 0
@@ -507,7 +505,7 @@ class MainWindow(QMainWindow):
                 self.t_sport.setItem(index, 4, QTableWidgetItem(country [0] [1] + "," + city [0] [1] + "," + street [0] [1]))
                 index+=1
                 item+=1
-        self.t_sport.setRowCount (index)
+        self.t_sport.setRowCount(index)
 
 class AuthWindow(QMainWindow):
     def __init__(self):
