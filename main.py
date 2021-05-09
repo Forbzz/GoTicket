@@ -16,23 +16,6 @@ conn_tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_addr = ('127.0.0.1', 8888)
 db_file = 'sql1.db'
 
-
-def tcp_init():
-    try:
-        conn_tcp.connect(server_addr)
-    except socket.error:
-        print('Server not responding')
-
-
-def tcp_data(data: str) -> str:
-    try:
-        conn_tcp.send(data.encode())
-        return conn_tcp.recv(2048).decode()
-    except socket.error:
-        print('Bad request')
-
-
-
 # окно после покупки билета об оповещении(если можно сделать красивее, сделайте)
 class OkWindow(QMainWindow):
     def __init__(self):
@@ -201,7 +184,7 @@ class MainWindow(QMainWindow):
         self.t_sport.setColumnCount(5)
         self.t_sport.setHorizontalHeaderLabels(['Название', 'Длительность', 'Кол-во билетов', 'Дата', 'Адрес'])
 
-        match_list = read_table(db_file,sql_select_event_all, None)
+        match_list = read_table(db_file, sql_select_event_all, None)
 
         self.t_sport.setRowCount(len (match_list))
 
@@ -675,8 +658,5 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     mainWin = AuthWindow()
     mainWin.show()
-
-    tcp_init()
-    print(tcp_data('test'))
 
     sys.exit(app.exec_())
