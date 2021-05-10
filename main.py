@@ -411,7 +411,7 @@ class MainWindow(QMainWindow):
 
         self.t_logg = QTableWidget()
         self.t_logg.setColumnCount(3)
-        self.t_logg.setHorizontalHeaderLabels(['Пользователь', 'Время', 'Действие'])
+        self.t_logg.setHorizontalHeaderLabels(['Информация', 'Время', 'Действие'])
         self.update_log()
         self.t_logg.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.t_logg.setSelectionBehavior(QAbstractItemView.SelectRows)
@@ -444,8 +444,8 @@ class MainWindow(QMainWindow):
     @pyqtSlot()
     def search_ticket(self):
         print (self.e_search.text ())
-        event_list = search_record (self.e_search.text(), db_file, sql_select_event_like_name)
-        desc_list = search_record (self.e_search.text(), db_file, sql_select_event_info_description_like)
+        event_list = search_record(self.e_search.text(), db_file, sql_select_event_like_name)
+        desc_list = search_record(self.e_search.text(), db_file, sql_select_event_info_description_like)
         event_desc_list = []
         event_from_list = []
         for item in desc_list:
@@ -484,7 +484,14 @@ class MainWindow(QMainWindow):
     def refresh(self, match_list=None):
 
         if match_list is None:
-            match_list = read_table (db_file, sql_select_event_all, None)
+            match_list = read_table(db_file, sql_select_event_all, None)
+        count_row = 0
+        for i in match_list:
+            if i[2] < 1:
+                continue
+            if i[2] > 0:
+                count_row+=1
+        self.t_sport.setRowCount(count_row)
 
         index = 0
         item = 0
@@ -505,7 +512,7 @@ class MainWindow(QMainWindow):
                 self.t_sport.setItem(index, 4, QTableWidgetItem(country [0] [1] + "," + city [0] [1] + "," + street [0] [1]))
                 index+=1
                 item+=1
-        self.t_sport.setRowCount(index)
+        # self.t_sport.setRowCount(index)
 
 class AuthWindow(QMainWindow):
     def __init__(self):
